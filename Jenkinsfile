@@ -11,7 +11,14 @@ pipeline {
         stage('Install dependencies') {
             steps {
                 dir('frontend') {
-                    sh 'docker run --rm -v ${WORKSPACE}/frontend:/app -w /app node:20-alpine npm install'
+                    sh '''
+                        if ! command -v node &> /dev/null; then
+                            echo "ERROR: Node.js is not installed on the Jenkins agent."
+                            echo "Please install Node.js 20 or later, or configure Docker to be available."
+                            exit 1
+                        fi
+                        npm install
+                    '''
                 }
             }
         }
@@ -19,14 +26,14 @@ pipeline {
         stage('lint frontend') {
             steps {
                 dir('frontend') {
-                    sh 'docker run --rm -v ${WORKSPACE}/frontend:/app -w /app node:20-alpine npm run lint'
+                    sh 'npm run lint'
                 }
             }
         }
         stage('eslint frontend') {
             steps {
                 dir('frontend') {
-                    sh 'docker run --rm -v ${WORKSPACE}/frontend:/app -w /app node:20-alpine npm run eslint'
+                    sh 'npm run eslint'
                 }
             }
         }
