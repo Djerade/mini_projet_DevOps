@@ -16,42 +16,39 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
-                dir('frontend') {
-                    sh '''
-                        docker run --rm \
-                            -v ${WORKSPACE}/frontend:/app \
-                            -w /app \
-                            node:20-alpine \
-                            npm install
-                    '''
-                }
+                sh '''
+                    echo "Workspace: ${WORKSPACE}"
+                    echo "Checking frontend directory..."
+                    ls -la ${WORKSPACE}/frontend/ || echo "Frontend directory not found"
+                    docker run --rm \
+                        -v ${WORKSPACE}/frontend:/app \
+                        -w /app \
+                        node:20-alpine \
+                        sh -c "ls -la /app && npm install"
+                '''
             }
         }
 
         stage('lint frontend') {
             steps {
-                dir('frontend') {
-                    sh '''
-                        docker run --rm \
-                            -v ${WORKSPACE}/frontend:/app \
-                            -w /app \
-                            node:20-alpine \
-                            npm run lint
-                    '''
-                }
+                sh '''
+                    docker run --rm \
+                        -v ${WORKSPACE}/frontend:/app \
+                        -w /app \
+                        node:20-alpine \
+                        npm run lint
+                '''
             }
         }
         stage('eslint frontend') {
             steps {
-                dir('frontend') {
-                    sh '''
-                        docker run --rm \
-                            -v ${WORKSPACE}/frontend:/app \
-                            -w /app \
-                            node:20-alpine \
-                            npm run eslint
-                    '''
-                }
+                sh '''
+                    docker run --rm \
+                        -v ${WORKSPACE}/frontend:/app \
+                        -w /app \
+                        node:20-alpine \
+                        npm run eslint
+                '''
             }
         }
         stage('Build') {
