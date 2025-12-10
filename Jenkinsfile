@@ -67,8 +67,23 @@ pipeline {
         }
         stage('Run') {
             steps {
-                sh 'docker run -p 3000:3000 ${FRONTEND_IMAGE}'
-                sh 'docker run -p 8000:8000 ${BACKEND_IMAGE}'
+                script {
+                    // Stop existing containers if running
+                    sh '''
+                        docker stop frontend-container 2>/dev/null || true
+                        docker rm frontend-container 2>/dev/null || true
+                        docker stop backend-container 2>/dev/null || true
+                        docker rm backend-container 2>/dev/null || true
+                    '''
+                    // Run containers in background
+                    sh 'docker run -d --name frontend-container -p 3000:3000 ${FRONTEND_IMAGE}'
+                    sh 'docker run -d --name backend-container -p 8000:8000 ${BACKEND_IMAGE}'
+                    // Wait a bit and check if containers are running
+                    sh '''
+                        sleep 5
+                        docker ps | grep -E "(frontend-container|backend-container)" || echo "Containers may have failed to start"
+                    '''
+                }
             }
         }
         stage('Push') {
