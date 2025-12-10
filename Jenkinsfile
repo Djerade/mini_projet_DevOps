@@ -8,6 +8,12 @@ pipeline {
     
     stages {
 
+        stage('Install dependencies') {
+            steps {
+                sh 'npm install'
+            }
+        }
+
         stage('lint frontend') {
             steps {
                 sh 'npm run lint'
