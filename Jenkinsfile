@@ -10,18 +10,24 @@ pipeline {
 
         stage('Install dependencies') {
             steps {
-                sh 'npm install'
+                dir('frontend') {
+                    sh 'docker run --rm -v ${WORKSPACE}/frontend:/app -w /app node:20-alpine npm install'
+                }
             }
         }
 
         stage('lint frontend') {
             steps {
-                sh 'npm run lint'
+                dir('frontend') {
+                    sh 'docker run --rm -v ${WORKSPACE}/frontend:/app -w /app node:20-alpine npm run lint'
+                }
             }
         }
         stage('eslint frontend') {
             steps {
-                sh 'npm run eslint'
+                dir('frontend') {
+                    sh 'docker run --rm -v ${WORKSPACE}/frontend:/app -w /app node:20-alpine npm run eslint'
+                }
             }
         }
         stage('Build') {
