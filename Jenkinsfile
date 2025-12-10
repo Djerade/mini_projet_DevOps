@@ -7,6 +7,14 @@ pipeline {
     }   
     
     stages {
+        stage('Init workspace paths') {
+            steps {
+                script {
+                    env.HOST_WORKSPACE = "/home/perfect/Documents/GitHub/mini_projet_DevOps/jenkins/workspace/${env.JOB_NAME}"
+                    echo "Host workspace path: ${env.HOST_WORKSPACE}"
+                }
+            }
+        }
 
         stage('test') {
             steps {
@@ -19,9 +27,9 @@ pipeline {
                 sh '''
                     echo "Workspace: ${WORKSPACE}"
                     echo "Checking frontend directory..."
-                    ls -la ${WORKSPACE}/frontend/ || echo "Frontend directory not found"
+                    ls -la ${HOST_WORKSPACE}/frontend/ || echo "Frontend directory not found"
                     docker run --rm \
-                        -v ${WORKSPACE}/frontend:/app \
+                        -v ${HOST_WORKSPACE}/frontend:/app \
                         -w /app \
                         node:20-alpine \
                         sh -c "ls -la /app && npm install"
@@ -33,7 +41,7 @@ pipeline {
             steps {
                 sh '''
                     docker run --rm \
-                        -v ${WORKSPACE}/frontend:/app \
+                        -v ${HOST_WORKSPACE}/frontend:/app \
                         -w /app \
                         node:20-alpine \
                         npm run lint
@@ -44,7 +52,7 @@ pipeline {
             steps {
                 sh '''
                     docker run --rm \
-                        -v ${WORKSPACE}/frontend:/app \
+                        -v ${HOST_WORKSPACE}/frontend:/app \
                         -w /app \
                         node:20-alpine \
                         npm run eslint
