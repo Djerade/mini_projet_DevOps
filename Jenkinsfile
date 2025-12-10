@@ -8,12 +8,13 @@ pipeline {
     
     stages {
 
-        stage('Install dependencies') {
-            stage('test'){
-                steps {
-                    sh 'echo "Testing"'
-                }
+        stage('test') {
+            steps {
+                sh 'echo "Testing"'
             }
+        }
+
+        stage('Install dependencies') {
             steps {
                 dir('frontend') {
                     sh '''
