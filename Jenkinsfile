@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKERHUB_USERNAME = 'parfi7zhy '
-        DOCKERHUB_PASSWORD = 'Docker@123'
+        DOCKERHUB_USERNAME = "${env.DOCKERHUB_USERNAME}"
+        DOCKERHUB_PASSWORD = "${env.DOCKERHUB_PASSWORD}"
         FRONTEND_IMAGE = 'dockerhub.io/parfi7zhy/frontend'
         BACKEND_IMAGE = 'dockerhub.io/parfi7zhy/backend'
     }   
@@ -70,7 +70,7 @@ pipeline {
         
      stage('Push') {
          steps {
-       withCredentials([usernamePassword(credentialsId: 'parfi7zhy', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
+       withCredentials([usernamePassword(credentialsId: 'par', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
          sh '''
            echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
            docker push ${FRONTEND_IMAGE}
