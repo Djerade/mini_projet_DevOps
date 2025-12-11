@@ -4,8 +4,6 @@
   <id>admin</id>
   <fullName>Djeradé Golbé Parfait</fullName>
   <properties>
-    <io.jenkins.plugins.thememanager.ThemeUserProperty plugin="theme-manager@327.v780d7096ec29"/>
-    <jenkins.console.ConsoleUrlProviderUserProperty/>
     <com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty plugin="credentials@1453.v9b_a_29777a_b_fd">
       <domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash"/>
     </com.cloudbees.plugins.credentials.UserCredentialsProvider_-UserCredentialsProperty>
@@ -59,5 +57,9 @@
       </roles>
       <timestamp>1765338912322</timestamp>
     </jenkins.security.LastGrantedAuthoritiesProperty>
+    <io.jenkins.plugins.thememanager.ThemeUserProperty plugin="theme-manager@327.v780d7096ec29">
+      <theme class="io.jenkins.plugins.darktheme.DarkThemeManagerFactory" plugin="dark-theme@574.va_19f05d54df5"/>
+    </io.jenkins.plugins.thememanager.ThemeUserProperty>
+    <jenkins.console.ConsoleUrlProviderUserProperty/>
   </properties>
 </user>

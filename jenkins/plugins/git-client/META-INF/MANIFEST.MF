@@ -4,13 +4,13 @@ Build-Jdk-Spec: 17
 Specification-Title: Jenkins Git client plugin
 Specification-Version: 6.4
 Implementation-Title: Jenkins Git client plugin
-Implementation-Version: 6.4.0
+Implementation-Version: 6.4.1
 Group-Id: org.jenkins-ci.plugins
 Artifact-Id: git-client
 Short-Name: git-client
 Long-Name: Jenkins Git client plugin
 Url: https://github.com/jenkinsci/git-client-plugin
-Plugin-Version: 6.4.0
+Plugin-Version: 6.4.1
 Hudson-Version: 2.504.1
 Jenkins-Version: 2.504.1
 Plugin-Dependencies: mina-sshd-api-common:2.16.0-167.va_269f38cc024,mina
@@ -25,7 +25,7 @@ Plugin-License-Name: MIT License
 Plugin-License-Url: https://opensource.org/licenses/MIT
 Plugin-ScmConnection: scm:git:https://github.com/jenkinsci/git-client-pl
  ugin
-Plugin-ScmTag: git-client-6.4.0
+Plugin-ScmTag: git-client-6.4.1
 Plugin-ScmUrl: https://github.com/jenkinsci/git-client-plugin
-Implementation-Build: 05596cc7e3f07d145f12e0aeac4f450fba46764c
+Implementation-Build: 6ab6cdcc1a224bcb41421f0c1f1bee4bea4868ff
 
