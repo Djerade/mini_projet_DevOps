@@ -6,7 +6,7 @@ pipeline {
         DOCKERHUB_PASSWORD = "${env.DOCKERHUB_PASSWORD}"
         FRONTEND_IMAGE = 'parfi7zhy/frontend'
         BACKEND_IMAGE = 'parfi7zhy/backend'
-        SONAR_HOST_URL = "${env.SONAR_HOST_URL}"
+        SONAR_HOST_URL = 'http://localhost:9000'
     }   
     
     stages {
