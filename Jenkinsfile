@@ -67,18 +67,19 @@ pipeline {
                 sh 'docker build -t ${BACKEND_IMAGE} backend'
             }
         }
-        
-     stage('Push') {
+
+          stage('Push') {
          steps {
-       withCredentials([usernamePassword(credentialsId: 'parfi7zhy', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
-         sh '''
-           echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
-           docker push ${FRONTEND_IMAGE}
-           docker push ${BACKEND_IMAGE}
-         '''
-              }
-            }
+                withCredentials([usernamePassword(credentialsId: 'dockerhub-creds', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
+                 sh '''
+                echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
+                docker push $FRONTEND_IMAGE
+               docker push $BACKEND_IMAGE
+              '''
+           }
+          }
         }
+
         stage('Deploy') {
             steps {
                 sh 'docker-compose up -d'
