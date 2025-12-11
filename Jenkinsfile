@@ -4,8 +4,8 @@ pipeline {
     environment {
         DOCKERHUB_USERNAME = "${env.DOCKERHUB_USERNAME}"
         DOCKERHUB_PASSWORD = "${env.DOCKERHUB_PASSWORD}"
-        FRONTEND_IMAGE = 'dockerhub.io/parfi7zhy/frontend'
-        BACKEND_IMAGE = 'dockerhub.io/parfi7zhy/backend'
+        FRONTEND_IMAGE = 'parfi7zhy/frontend'
+        BACKEND_IMAGE = 'parfi7zhy/backend'
     }   
     
     stages {
