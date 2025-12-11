@@ -6,6 +6,7 @@ pipeline {
         DOCKERHUB_PASSWORD = "${env.DOCKERHUB_PASSWORD}"
         FRONTEND_IMAGE = 'parfi7zhy/frontend'
         BACKEND_IMAGE = 'parfi7zhy/backend'
+        SONAR_HOST_URL = "${env.SONAR_HOST_URL}"
     }   
     
     stages {
@@ -15,12 +16,6 @@ pipeline {
                     env.HOST_WORKSPACE = "/home/perfect/Documents/GitHub/mini_projet_DevOps/jenkins/workspace/${env.JOB_NAME}"
                     echo "Host workspace path: ${env.HOST_WORKSPACE}"
                 }
-            }
-        }
-
-        stage('test') {
-            steps {
-                sh 'echo "Testing"'
             }
         }
 
@@ -61,6 +56,28 @@ pipeline {
                 '''
             }
         }
+
+        stage('SonarQube scan') {
+            steps {
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
+                    sh '''
+                        if [ -z "${SONAR_HOST_URL}" ]; then
+                          echo "SONAR_HOST_URL is not set"; exit 1
+                        fi
+                        docker run --rm \
+                          -e SONAR_HOST_URL=${SONAR_HOST_URL} \
+                          -e SONAR_LOGIN=${SONAR_TOKEN} \
+                          -v ${HOST_WORKSPACE}/frontend:/usr/src \
+                          sonarsource/sonar-scanner-cli \
+                          -Dsonar.projectKey=mini_projet_frontend \
+                          -Dsonar.projectName=mini_projet_frontend \
+                          -Dsonar.sources=. \
+                          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info || true
+                    '''
+                }
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'docker build -t ${FRONTEND_IMAGE} frontend'
