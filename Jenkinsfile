@@ -2,8 +2,10 @@ pipeline {
     agent any
 
     environment {
-        FRONTEND_IMAGE = 'frontend'
-        BACKEND_IMAGE = 'backend'
+        DOCKERHUB_USERNAME = 'parfi7zhy '
+        DOCKERHUB_PASSWORD = 'Docker@123'
+        FRONTEND_IMAGE = 'dockerhub.io/parfi7zhy/frontend'
+        BACKEND_IMAGE = 'dockerhub.io/parfi7zhy/backend'
     }   
     
     stages {
@@ -65,10 +67,16 @@ pipeline {
                 sh 'docker build -t ${BACKEND_IMAGE} backend'
             }
         }
-        stage('Push') {
-            steps {
-                sh 'docker push ${FRONTEND_IMAGE}'
-                sh 'docker push ${BACKEND_IMAGE}'
+        
+     stage('Push') {
+         steps {
+       withCredentials([usernamePassword(credentialsId: 'parfi7zhy', usernameVariable: 'DH_USER', passwordVariable: 'DH_PASS')]) {
+         sh '''
+           echo "$DH_PASS" | docker login -u "$DH_USER" --password-stdin
+           docker push ${FRONTEND_IMAGE}
+           docker push ${BACKEND_IMAGE}
+         '''
+              }
             }
         }
         stage('Deploy') {
