@@ -62,8 +62,29 @@ pipeline {
                 withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_TOKEN')]) {
                     sh '''
                         if [ -z "${SONAR_HOST_URL}" ]; then
-                          echo "SONAR_HOST_URL is not set"; exit 1
+                          echo "ERROR: SONAR_HOST_URL is not set"
+                          exit 1
                         fi
+                        
+                        if [ -z "${SONAR_TOKEN}" ]; then
+                          echo "ERROR: SONAR_TOKEN is not set"
+                          exit 1
+                        fi
+                        
+                        echo "Starting SonarQube scan..."
+                        echo "SONAR_HOST_URL: ${SONAR_HOST_URL}"
+                        echo "Project Key: mini_projet_frontend"
+                        
+                        # Check if coverage file exists
+                        COVERAGE_OPTION=""
+                        if [ -f "${HOST_WORKSPACE}/frontend/coverage/lcov.info" ]; then
+                          echo "Coverage file found, including in scan"
+                          COVERAGE_OPTION="-Dsonar.javascript.lcov.reportPaths=coverage/lcov.info"
+                        else
+                          echo "WARNING: Coverage file not found, skipping coverage report"
+                        fi
+                        
+                        # Run SonarQube scanner
                         docker run --rm \
                           -e SONAR_HOST_URL=${SONAR_HOST_URL} \
                           -e SONAR_LOGIN=${SONAR_TOKEN} \
@@ -73,7 +94,15 @@ pipeline {
                           -Dsonar.projectKey=mini_projet_frontend \
                           -Dsonar.projectName=mini_projet_frontend \
                           -Dsonar.sources=. \
-                          -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info || true
+                          ${COVERAGE_OPTION} || {
+                            EXIT_CODE=$?
+                            echo "ERROR: SonarQube scan failed with exit code: $EXIT_CODE"
+                            echo "Please check:"
+                            echo "  1. Project exists in SonarCloud with key 'mini_projet_frontend'"
+                            echo "  2. Token has correct permissions"
+                            echo "  3. Project key matches exactly in SonarCloud"
+                            exit 0
+                          }
                     '''
                 }
             }

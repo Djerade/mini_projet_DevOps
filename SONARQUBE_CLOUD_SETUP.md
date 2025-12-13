@@ -1,6 +1,10 @@
-# Configuration SonarQube Cloud
+# Configuration SonarQube Cloud pour Jenkins
 
-## Étapes pour configurer SonarQube Cloud
+## Problème courant : "Project does not exist"
+
+Si vous voyez une erreur lors du scan, c'est probablement parce que le projet n'existe pas encore dans SonarCloud.
+
+## Étapes pour créer le projet dans SonarCloud
 
 ### 1. Créer un compte SonarCloud
 
@@ -11,15 +15,39 @@
 ### 2. Créer une organisation
 
 1. Une fois connecté, créez une organisation (gratuite pour les projets open source)
-2. Choisissez un nom pour votre organisation
+2. Choisissez un nom pour votre organisation (ex: `votre-username`)
 
 ### 3. Créer un projet
 
+**Option A : Via GitHub (recommandé)**
 1. Dans votre organisation, cliquez sur "Add Project"
-2. Sélectionnez votre dépôt GitHub (ou autre)
-3. SonarCloud créera automatiquement un projet avec une clé unique
+2. Sélectionnez "From GitHub"
+3. Autorisez SonarCloud à accéder à votre dépôt
+4. Sélectionnez votre dépôt `mini_projet_DevOps`
+5. SonarCloud créera automatiquement un projet
 
-### 4. Générer un token
+**Option B : Manuellement**
+1. Dans votre organisation, cliquez sur "Add Project"
+2. Sélectionnez "Manually"
+3. Donnez un nom au projet : `mini_projet_frontend`
+4. Donnez une clé au projet : `mini_projet_frontend` (doit correspondre exactement au `projectKey` dans Jenkinsfile)
+
+### 4. Obtenir la clé exacte du projet
+
+Une fois le projet créé :
+1. Allez dans votre projet dans SonarCloud
+2. Cliquez sur "Project Information" (en haut à droite)
+3. Notez la **Project Key** exacte (ex: `votre-org_mini_projet_frontend` ou `mini_projet_frontend`)
+
+### 5. Mettre à jour le Jenkinsfile (si nécessaire)
+
+Si la clé du projet dans SonarCloud est différente de `mini_projet_frontend`, mettez à jour le Jenkinsfile :
+
+```groovy
+-Dsonar.projectKey=votre-org_mini_projet_frontend
+```
+
+### 6. Générer un token
 
 1. Cliquez sur votre profil (en haut à droite)
 2. Allez dans "My Account" → "Security"
@@ -27,43 +55,28 @@
 4. Cliquez sur "Generate"
 5. **Copiez le token immédiatement** (il ne sera plus visible après)
 
-### 5. Mettre à jour le token dans Jenkins
+### 7. Mettre à jour le token dans Jenkins
 
 1. Dans Jenkins, allez dans "Manage Jenkins" → "Credentials"
-2. Trouvez la credential `sonar-token`
-3. Mettez à jour avec le nouveau token SonarCloud
-4. Si la credential n'existe pas, créez-en une :
+2. Trouvez ou créez la credential `sonar-token` :
    - Type : "Secret text"
    - Secret : collez votre token SonarCloud
    - ID : `sonar-token`
+   - Description : "SonarCloud token"
 
-### 6. Mettre à jour la clé du projet (optionnel)
+### 8. Relancer le pipeline
 
-Si votre projet SonarCloud a une clé différente de `mini_projet_frontend`, mettez à jour dans le `Jenkinsfile` :
+Relancez le pipeline Jenkins. Le scan devrait maintenant fonctionner.
 
-```groovy
--Dsonar.projectKey=votre_organisation_votre_projet
-```
+## Vérification
 
-Vous pouvez trouver la clé exacte dans SonarCloud → Votre projet → Project Information
-
-### 7. Configuration du Jenkinsfile
-
-Le `Jenkinsfile` est déjà configuré avec :
-- `SONAR_HOST_URL = 'https://sonarcloud.io'`
-- Utilisation du token depuis Jenkins credentials
-
-## Avantages de SonarQube Cloud
-
-✅ Pas besoin d'installer/maintenir SonarQube localement
-✅ Pas de problèmes de ressources (RAM/CPU)
-✅ Mises à jour automatiques
-✅ Gratuit pour les projets open source
-✅ Intégration GitHub/GitLab native
+Pour vérifier que tout fonctionne :
+1. Le scan devrait se terminer avec succès
+2. Les résultats devraient apparaître dans SonarCloud
+3. Vous pouvez voir les issues de code dans l'interface SonarCloud
 
 ## Notes importantes
 
-- Le token SonarCloud est différent d'un token SonarQube local
-- Assurez-vous que le `projectKey` dans le Jenkinsfile correspond à celui dans SonarCloud
-- SonarCloud analyse automatiquement les pull requests si votre repo est connecté
-
+- Le `projectKey` dans le Jenkinsfile **doit correspondre exactement** à celui dans SonarCloud
+- Le token doit avoir les permissions pour analyser le projet
+- Si vous utilisez une organisation, la clé est souvent : `organisation_projectkey`
