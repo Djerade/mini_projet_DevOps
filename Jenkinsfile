@@ -6,7 +6,7 @@ pipeline {
         DOCKERHUB_PASSWORD = "${env.DOCKERHUB_PASSWORD}"
         FRONTEND_IMAGE = 'parfi7zhy/frontend'
         BACKEND_IMAGE = 'parfi7zhy/backend'
-        SONAR_HOST_URL = 'http://localhost:9000'
+        SONAR_HOST_URL = 'https://sonarcloud.io'
     }   
     
     stages {
@@ -68,6 +68,7 @@ pipeline {
                           -e SONAR_HOST_URL=${SONAR_HOST_URL} \
                           -e SONAR_LOGIN=${SONAR_TOKEN} \
                           -v ${HOST_WORKSPACE}/frontend:/usr/src \
+                          -w /usr/src \
                           sonarsource/sonar-scanner-cli \
                           -Dsonar.projectKey=mini_projet_frontend \
                           -Dsonar.projectName=mini_projet_frontend \

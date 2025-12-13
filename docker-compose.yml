@@ -100,14 +100,14 @@ services:
       - SONAR_JDBC_USERNAME=postgres
       - SONAR_JDBC_PASSWORD=postgres
       - SONAR_ES_BOOTSTRAP_CHECKS_DISABLE=true
-      - SONAR_ES_JAVA_OPTS=-Xms512m -Xmx512m -XX:+UseG1GC
-      - SONAR_WEB_JAVAOPTS=-Xmx512m -Xms128m -XX:+UseG1GC
+      - SONAR_ES_JAVA_OPTS=-Xms1g -Xmx1g -XX:+UseG1GC -XX:MaxDirectMemorySize=512m
+      - SONAR_WEB_JAVAOPTS=-Xmx256m -Xms128m -XX:+UseG1GC
     ulimits:
       nofile:
         soft: 65536
         hard: 65536
-    mem_limit: 4g
-    mem_reservation: 3g
+    mem_limit: 3g
+    mem_reservation: 2g
     shm_size: 512m
     restart: unless-stopped
     depends_on:
