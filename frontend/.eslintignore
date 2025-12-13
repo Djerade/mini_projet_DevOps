@@ -1,0 +1,19 @@
+# Dependencies
+node_modules/
+
+# Build outputs
+.next/
+out/
+build/
+dist/
+
+# Config files
+*.config.js
+next-env.d.ts
+
+# Cache
+.eslintcache
+
+# Logs
+*.log
+

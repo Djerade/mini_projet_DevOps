@@ -1,4 +1,4 @@
-version: '3.8'
+# version: '3.8'  # Déprécié dans Docker Compose v2+
 
 services:
   frontend:
@@ -67,6 +67,28 @@ services:
       - ecommerce-network
     depends_on:
       - database
+
+  jenkins:
+    build:
+      context: ./jenkins
+      dockerfile: Dockerfile
+    user: root
+    ports:
+      - "8081:8080"
+    volumes:
+      - ./jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+    networks:
+      - ecommerce-network
+    environment:
+      - JENKINS_ADMIN_PASSWORD=admin
+    depends_on:
+      - database
+      - backend
+      - frontend
+      - pgAdmin
+
+      
 
 
 networks:

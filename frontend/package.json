@@ -6,7 +6,9 @@
     "scripts": {
         "dev": "next dev",
         "build": "next build",
-        "start": "next start"
+        "start": "next start",
+        "lint": "eslint . --ext .ts,.tsx",
+        "eslint": "eslint . --ext .ts,.tsx"
     },
     "dependencies": {
         "next": "^14.2.20"
@@ -14,6 +16,8 @@
     "devDependencies": {
         "@types/node": "24.10.2",
         "@types/react": "19.2.7",
+        "@typescript-eslint/eslint-plugin": "^6.21.0",
+        "@typescript-eslint/parser": "^6.21.0",
         "autoprefixer": "^10.4.20",
         "eslint": "^8.57.0",
         "eslint-config-next": "^14.2.20",
