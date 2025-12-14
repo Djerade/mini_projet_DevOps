@@ -16,7 +16,47 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-change-this-in-production')
+def get_secret_key():
+    """
+    Récupère la SECRET_KEY depuis les variables d'environnement.
+    En production, la SECRET_KEY DOIT être définie.
+    En développement, génère une clé aléatoire si absente (non persistante).
+    """
+    secret_key = os.getenv('SECRET_KEY')
+    
+    if not secret_key:
+        # En production, refuser de démarrer sans SECRET_KEY
+        if os.getenv('DEBUG', 'True').lower() != 'true':
+            raise ValueError(
+                "SECRET_KEY must be set as an environment variable in production. "
+                "Please set SECRET_KEY in your environment or .env file."
+            )
+        # En développement uniquement, générer une clé temporaire
+        import secrets
+        import string
+        chars = string.ascii_letters + string.digits + string.punctuation
+        secret_key = ''.join(secrets.choice(chars) for _ in range(50))
+        print(
+            "⚠️  WARNING: SECRET_KEY not set. Generated temporary key for development only. "
+            "This key will change on each restart. Set SECRET_KEY in .env for persistence."
+        )
+    
+    # Vérifier que la clé n'est pas la valeur par défaut non sécurisée
+    insecure_keys = [
+        'django-insecure-change-this-in-production',
+        'django-insecure-dev-key-change-in-production',
+        'your-secret-key-here',
+        'change-this-in-production'
+    ]
+    if secret_key in insecure_keys:
+        raise ValueError(
+            "SECRET_KEY is set to an insecure default value. "
+            "Please generate a secure key using 'python manage.py generate_secret_key'"
+        )
+    
+    return secret_key
+
+SECRET_KEY = get_secret_key()
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('DEBUG', 'True') == 'True'
