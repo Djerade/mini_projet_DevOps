@@ -16,6 +16,9 @@ Si vous voyez une erreur lors du scan, c'est probablement parce que le projet n'
 
 1. Une fois connecté, créez une organisation (gratuite pour les projets open source)
 2. Choisissez un nom pour votre organisation (ex: `votre-username`)
+3. **Important** : Notez la **clé de l'organisation** (Organization Key)
+   - Vous pouvez la trouver dans l'URL : `https://sonarcloud.io/organizations/votre-org-key`
+   - Ou dans "My Account" → "Organizations"
 
 ### 3. Créer un projet
 
@@ -64,7 +67,20 @@ Si la clé du projet dans SonarCloud est différente de `mini_projet_frontend`, 
    - ID : `sonar-token`
    - Description : "SonarCloud token"
 
-### 8. Relancer le pipeline
+### 8. Configurer l'organisation dans Jenkins
+
+1. Dans Jenkins, allez dans votre job → "Configure"
+2. Dans la section "Build Environment" ou "Pipeline", ajoutez une variable d'environnement :
+   - Name : `SONAR_ORGANIZATION`
+   - Value : votre clé d'organisation SonarCloud (ex: `votre-org-key`)
+3. Vous pouvez aussi la définir globalement dans "Manage Jenkins" → "Configure System" → "Global properties" → "Environment variables"
+
+**Alternative** : Modifiez directement le Jenkinsfile pour définir la valeur :
+```groovy
+SONAR_ORGANIZATION = 'votre-org-key'
+```
+
+### 9. Relancer le pipeline
 
 Relancez le pipeline Jenkins. Le scan devrait maintenant fonctionner.
 
@@ -77,6 +93,8 @@ Pour vérifier que tout fonctionne :
 
 ## Notes importantes
 
+- **`sonar.organization` est OBLIGATOIRE** pour SonarCloud (contrairement à SonarQube local)
 - Le `projectKey` dans le Jenkinsfile **doit correspondre exactement** à celui dans SonarCloud
 - Le token doit avoir les permissions pour analyser le projet
-- Si vous utilisez une organisation, la clé est souvent : `organisation_projectkey`
+- Si vous utilisez une organisation, la clé du projet est souvent : `organisation_projectkey`
+- La clé d'organisation est différente du nom d'organisation (elle est généralement en minuscules avec des tirets)

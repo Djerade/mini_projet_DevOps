@@ -5,9 +5,9 @@ Implementation-Title: Jenkins war
 Main-Class: executable.Main
 Add-Opens: java.base/java.lang java.base/java.io java.base/java.util
 Hudson-Version: 1.395
-Implementation-Build: cd03575946702928698614543dbaa79904c3062f
-Implementation-Version: 2.528.2
-Jenkins-Version: 2.528.2
+Implementation-Build: 40e29179c3edf88b685d7043ab7c37cc8591138f
+Implementation-Version: 2.528.3
+Jenkins-Version: 2.528.3
 Remoting-Embedded-Version: 3327.v868139a_d00e0
 Remoting-Minimum-Supported-Version: 3107.v665000b_51092
 
@@ -628,8 +628,8 @@ SHA-384-Digest: vRrIahDYmzikNE7X1FW1QUXS9Aj4Lp+Oee1VSnAhk4f25GZIme5+zGQ/
  Nev8l1l9
 
 Name: META-INF/maven/org.jenkins-ci.main/jenkins-war/pom.properties
-SHA-384-Digest: hm6Q5FvIYuEFkM4VfXjTe3Uwhqi/ZFZhtVHVG5bWgj4GNo2qNak85x4T
- dtVbUfCw
+SHA-384-Digest: gbp2qDE+qVEZzJOzKoFxjhi/4qnn4AyPKxyhV8QlUW6AoPmPBF4bFFM9
+ gwp+osCE
 
 Name: WEB-INF/lib/crypto-util-1.11.jar
 SHA-384-Digest: GPzkLbPnHvr48HuNemtpQdfZGm18vLUygJEYsPVI7GnaTCj5Ix7pgobC
@@ -1231,10 +1231,6 @@ Name: images/svgs/clipboard.svg
 SHA-384-Digest: aO64LaczSs8Kn3X0MzpisIECsjOHEN+Pw4SZRoJXJKan3EFqn0gGPb7u
  L/kXCh4F
 
-Name: WEB-INF/lib/websocket-spi-2.528.2.jar
-SHA-384-Digest: NuNQWdFnUgTHFB/EwZeKEHLwvcdbUZZ/kbD0JEKNCnpQSihCFui0MYf9
- Col1zQkZ
-
 Name: WEB-INF/lib/jansi-1.11.jar
 SHA-384-Digest: s0LlxblYi82TQ9ykjbQIz/M6MFxYSUIcMxYdFRptDW4AfkL6xLV/AmqM
  2SLHd6Hk
@@ -1242,10 +1238,6 @@ SHA-384-Digest: s0LlxblYi82TQ9ykjbQIz/M6MFxYSUIcMxYdFRptDW4AfkL6xLV/AmqM
 Name: help/run-config/description_ja.html
 SHA-384-Digest: ix+s6oyiRO6Al9H4kDm3c6CNWVHFjHDaoJuJk6talt966pUls/w1Fxy/
  pUJJW2Os
-
-Name: WEB-INF/lib/cli-2.528.2.jar
-SHA-384-Digest: ItZXA4LRNtrZHlkBU2o4VqgorHCdj9sN43GVZY3v/IRvnZWJoIJgjlva
- +h9uWmAq
 
 Name: help/project-config/triggerRemotely_bg.html
 SHA-384-Digest: UUflP74uF17el948wlYIDDFy3+Ye5HarOF5MHAZjL08Xb+WWrhopMrB1
@@ -1451,6 +1443,10 @@ Name: WEB-INF/lib/antlr4-runtime-4.13.2.jar
 SHA-384-Digest: 9JwjleFv5x+jViK8yiJcCRBgnvCWJiB85FIsc8dg/SMkiUieqI1UyI/C
  GwWgMDHg
 
+Name: WEB-INF/lib/cli-2.528.3.jar
+SHA-384-Digest: OQYNI2XdKWn+dX/TjeBVcbhFnT9WuylTB3qo89q1D/krW237WnCnqBTO
+ N7ID1tfB
+
 Name: images/16x16/aborted.gif
 SHA-384-Digest: JunwI0AXDwcJ/eCE4UHlsD26t3kcKpEchXFeQb0Fu328VJXCbBwhH6ez
  0eFJy5jm
@@ -1552,8 +1548,8 @@ SHA-384-Digest: McEcYuEP+CGLgtnRLFnkgr9AIrf4eZz1eIwol0zD7TIztrX7/ZKcnM10
  HKDKoy/z
 
 Name: META-INF/maven/org.jenkins-ci.main/jenkins-war/pom.xml
-SHA-384-Digest: Jx4tMdbbs9/36DZGmRYrQKAavnalQNiMu3PiNq+74LdzxR0Sh6SeK2V6
- E47PCmF2
+SHA-384-Digest: dXw+YCyIk9CrMIkQ8NSCnVdOloQCzy1gxKxxCvOAWChCgh+hujoxgKAV
+ fjWj/i4u
 
 Name: help/project-config/batch_fr.html
 SHA-384-Digest: 65ZOJL/uKX9x5AMjyKuZH4L1nfaF4Ouiz+c1dJqlxD5pcAxDfqDWiTJE
@@ -1566,10 +1562,6 @@ SHA-384-Digest: I/XMVZEkBVajnC42sXvV0FtSh/Mnv4+RDzOAUlndb18i+FXLrva4OHGp
 Name: WEB-INF/classes/images/symbols/refresh.svg
 SHA-384-Digest: TGX0B0xP/EaphsHbkE5hO128UqwM9hf9oduCNpjfI1dNwXLG31D+Uwp4
  2NHkCfYg
-
-Name: WEB-INF/lib/websocket-jetty12-ee9-2.528.2.jar
-SHA-384-Digest: N/dRv/nL3UJ4yxodDB+arO/QfxiQzBrd/YCQ9cLKwY88LlCq3Pn3pPY7
- pKjjbk+J
 
 Name: WEB-INF/lib/spring-security-core-6.5.3.jar
 SHA-384-Digest: RCJsDgztzmf3Ffm0ny8+lyMTvjo5YeYizQrq2RGxPEKRjf1o0rK57Dgy
@@ -1918,6 +1910,10 @@ SHA-384-Digest: tUgfzGehTZ4Kr6NHf84XtdcupMr9cO4bcPaXvrB4KqPGH43ouzpkqQFi
 Name: images/48x48/yellow.png
 SHA-384-Digest: zldATolhOa9plfICLEhk9EYKDEpBdmOyqbiwOxHZFghGBEASsCsQeK2v
  VyDLJ/VH
+
+Name: WEB-INF/lib/websocket-spi-2.528.3.jar
+SHA-384-Digest: +LTliNzJ47iXxzJ8Aj5LihjiO1pL2iIjz36fZm2iKc+dtpxI3t6XbP5a
+ bbwD4dPG
 
 Name: help/system-config/master-slave/demand/inDemandDelay_it.html
 SHA-384-Digest: Km80v14OtYKwROaZxdiMG40iYHhaQczUQA2mT9Lq8icqiC6B3nc3ap4n
@@ -2274,6 +2270,10 @@ SHA-384-Digest: A/vHlCHDrBqOnJSGCXucQEnZU9yLFZ1ARnRofbw+z83N85k9FhP/SPKP
 Name: WEB-INF/classes/images/symbols/edit.svg
 SHA-384-Digest: mvurbQJqUKGWi/4C2V7nerGR7BnA1IFV+t4LHz6KtYw9Wng1PYimVbK+
  Kgf2j0Ew
+
+Name: WEB-INF/lib/websocket-jetty12-ee9-2.528.3.jar
+SHA-384-Digest: FE/pltK3XFX6aCHaUBvpVDfxtWtpnc+CiwZVDwAoWMdN0cDKzhv3uDk6
+ aRXoghzB
 
 Name: help/system-config/master-slave/clock_zh_TW.html
 SHA-384-Digest: Fc6WIlrCDYi81eeWBSveA9Rlfddyl7prhimgkM5HRxcIEfDG3TxouEd1
@@ -2692,8 +2692,8 @@ SHA-384-Digest: Rx6duWKPV07yrEmkRbf35kG6VpoMr98+OuapJgzqmMpsNueM33BjyKJF
  uhCLOnn0
 
 Name: WEB-INF/classes/META-INF/licenses.html
-SHA-384-Digest: k3YgENAVnpaQ6ub1Af8clyLIO5wiGfZ9UpX6CWxwKnL/5N4/4ZenNuGY
- 6Kzc+hTT
+SHA-384-Digest: 8/MoQ9726PsjJ5JA4G7R/DGia9whecV4R6EaBQyRt/e2tCIceZPLn/8I
+ SLnIPdKz
 
 Name: WEB-INF/lib/jcip-annotations-1.0.jar
 SHA-384-Digest: INEvSmhza433NrHeIzuv9disXXG5KhyhDcHrYSk++IvTy0NKtx6QJ6bT
@@ -2880,8 +2880,8 @@ SHA-384-Digest: 5eCZW9FH76zbcphIFVfs69FGTebUekI5oxQLSSkqxq6eeg2xTxMLHQRl
  OzSFIwJA
 
 Name: WEB-INF/classes/META-INF/licenses.xml
-SHA-384-Digest: P4q9NSHz7ZPM/koJg71kkrx3ommmja0NmMDsGDB+1pFnHKGyKyq4g3ra
- aoY1etJS
+SHA-384-Digest: Om5l0zk2nKT8c8wLCCB+kJ61O2jx35CvHHYYcqHiXJS2sie+a8AyJaj6
+ 6JitJBa2
 
 Name: help/system-config/nodeEnvironmentVariables.html
 SHA-384-Digest: A71zeCZPZGz2Gr8aHNf0AurDd+XH75COQiciILlpVni6SPhLDhH8ODvE
@@ -2980,8 +2980,8 @@ SHA-384-Digest: unUXG9XSkJW/4oDhJzBD27h2ipSXaZIctVpDD5M4MJXlOjXcjHPxBwZQ
  BSrkWx52
 
 Name: WEB-INF/classes/dependencies.txt
-SHA-384-Digest: i6FTXkLFvpubLMeZfuVQijP8p+niXPD+MSmdS0knN5yzQFp2A6rxXLVm
- hXqVfLIK
+SHA-384-Digest: 7fG4L2SiAUlYm5Nv1SCP17AuhgRX2bGT7/MIFGrhZgLyNFD5zlWn9Vwt
+ /vSLqM6k
 
 Name: WEB-INF/classes/images/symbols/code-working.svg
 SHA-384-Digest: 9Nnk54pfp+OvuXq0TEEktxZq5XPa8w01j8BTGg/Hnct0aQxdTwtGuBEd
@@ -3285,8 +3285,8 @@ SHA-384-Digest: HWxU8BlYpQtR0hruRpzy1cjrEeKwBKEzN7Qe3DWPFYGmCz0x30SbQx4g
  /EOCu4IQ
 
 Name: WEB-INF/web.xml
-SHA-384-Digest: mTCyCdR1AbWlAHcBP9FLp+MZtXosxU7emrs0Ogee11L6jQ3rkmeXjdku
- UOhW3/TB
+SHA-384-Digest: sAdLdiVS4WO5jXQof9xtzxPUt3OVakHoFIHQ9ln/8joS4iZIeIcLmM2C
+ +d0hIwm9
 
 Name: help/tasks/fingerprint/keepDependencies_de.html
 SHA-384-Digest: 0BCz1vSYYwZDw8JM/0pWHdlTOrwbUGkJG/wnp1cQZ/4KUzlH0GzbPYol
@@ -3419,10 +3419,6 @@ SHA-384-Digest: 3aKD3LNZBC05g4CQF0ETZTBYFjmCO8eVFAuLpQEznjrZU6Bg2SxFK6CQ
 Name: WEB-INF/lib/jakarta.annotation-api-3.0.0.jar
 SHA-384-Digest: GhLLeAGdMQ6wgxT4Y8Kg5IqihFvehE+CBOZT7FBxO/E1zFjM6ILhTvYx
  MnlSta2Z
-
-Name: WEB-INF/lib/jenkins-core-2.528.2.jar
-SHA-384-Digest: GVv8LCaQ5sl0UteUHJUn2ZWngxBuNUTwr18voFt6dwiW7iozGgj0344r
- 0x2Nd+mq
 
 Name: images/svgs/person.svg
 SHA-384-Digest: qzt1g6+rRTKk9xlHTI72H8vpHXSK7Ev0CiJ0YzoU5ZfaPgVr9NGn3Ptm
@@ -3651,6 +3647,10 @@ SHA-384-Digest: YN5a/qGRgPsrmuPgqivkyrJkga0ZmQvnimSV5xf1+0gNjgIXjGBXe+ez
 Name: help/system-config/homeDirectory_fr.html
 SHA-384-Digest: Q6dMtM/cPBcwrZ1iu0o2yUTnjmufCCtjDt/cCf3EV7uDSCPOgm1onlXj
  at9G4sJg
+
+Name: WEB-INF/lib/jenkins-core-2.528.3.jar
+SHA-384-Digest: EI1gF1trWiPi/gO78eB4Ed7+wzzK93YbFFs9Mtj4QPnLVSvZIFbkvvHS
+ bZR8+tqk
 
 Name: WEB-INF/lib/spring-core-6.2.10.jar
 SHA-384-Digest: 1fOigw6oqnKuVfQt4tFt3Op8+TKXg96XN8SMuk0ZV/OHBL6CFBDEP9XM

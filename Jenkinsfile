@@ -7,6 +7,8 @@ pipeline {
         FRONTEND_IMAGE = 'parfi7zhy/frontend'
         BACKEND_IMAGE = 'parfi7zhy/backend'
         SONAR_HOST_URL = 'https://sonarcloud.io'
+        // SONAR_ORGANIZATION doit être configuré dans Jenkins (Manage Jenkins → Configure System → Global properties)
+        SONAR_ORGANIZATION = "${env.SONAR_ORGANIZATION ?: ''}"
     }   
     
     stages {
@@ -71,8 +73,16 @@ pipeline {
                           exit 1
                         fi
                         
+                        if [ -z "${SONAR_ORGANIZATION}" ]; then
+                          echo "ERROR: SONAR_ORGANIZATION is not set"
+                          echo "Please configure SONAR_ORGANIZATION in Jenkins environment variables"
+                          echo "You can find your organization key in SonarCloud: https://sonarcloud.io/organizations"
+                          exit 1
+                        fi
+                        
                         echo "Starting SonarQube scan..."
                         echo "SONAR_HOST_URL: ${SONAR_HOST_URL}"
+                        echo "SONAR_ORGANIZATION: ${SONAR_ORGANIZATION}"
                         echo "Project Key: mini_projet_frontend"
                         
                         # Check if coverage file exists
@@ -91,6 +101,7 @@ pipeline {
                           -v ${HOST_WORKSPACE}/frontend:/usr/src \
                           -w /usr/src \
                           sonarsource/sonar-scanner-cli \
+                          -Dsonar.organization=${SONAR_ORGANIZATION} \
                           -Dsonar.projectKey=mini_projet_frontend \
                           -Dsonar.projectName=mini_projet_frontend \
                           -Dsonar.sources=. \
@@ -98,9 +109,11 @@ pipeline {
                             EXIT_CODE=$?
                             echo "ERROR: SonarQube scan failed with exit code: $EXIT_CODE"
                             echo "Please check:"
-                            echo "  1. Project exists in SonarCloud with key 'mini_projet_frontend'"
-                            echo "  2. Token has correct permissions"
-                            echo "  3. Project key matches exactly in SonarCloud"
+                            echo "  1. SONAR_ORGANIZATION is set correctly in Jenkins"
+                            echo "  2. Project exists in SonarCloud with key 'mini_projet_frontend'"
+                            echo "  3. Token has correct permissions"
+                            echo "  4. Project key matches exactly in SonarCloud"
+                            echo "  5. Organization key matches your SonarCloud organization"
                             exit 0
                           }
                     '''
