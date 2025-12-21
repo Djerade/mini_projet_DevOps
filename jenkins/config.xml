@@ -1,6 +1,7 @@
 <?xml version='1.1' encoding='UTF-8'?>
 <hudson>
   <disabledAdministrativeMonitors>
+    <string>hudsonHomeIsFull</string>
     <string>hudson.util.DoubleLaunchChecker</string>
   </disabledAdministrativeMonitors>
   <version>2.528.3</version>
@@ -40,6 +41,20 @@
     <excludeClientIPFromCrumb>false</excludeClientIPFromCrumb>
   </crumbIssuer>
   <nodeProperties/>
-  <globalNodeProperties/>
+  <globalNodeProperties>
+    <hudson.slaves.EnvironmentVariablesNodeProperty>
+      <envVars serialization="custom">
+        <unserializable-parents/>
+        <tree-map>
+          <default>
+            <comparator class="java.lang.String$CaseInsensitiveComparator"/>
+          </default>
+          <int>1</int>
+          <string>SONAR_ORGANIZATION</string>
+          <string>985b504d64bff6038f0ab1596e40c2cdaa6890e7</string>
+        </tree-map>
+      </envVars>
+    </hudson.slaves.EnvironmentVariablesNodeProperty>
+  </globalNodeProperties>
   <nodeRenameMigrationNeeded>false</nodeRenameMigrationNeeded>
 </hudson>

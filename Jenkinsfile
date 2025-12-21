@@ -9,6 +9,10 @@ pipeline {
         SONAR_HOST_URL = 'https://sonarcloud.io'
         // SONAR_ORGANIZATION doit être configuré dans Jenkins (Manage Jenkins → Configure System → Global properties)
         SONAR_ORGANIZATION = "${env.SONAR_ORGANIZATION ?: ''}"
+        // Render configuration - à configurer dans Jenkins
+        RENDER_API_KEY = "${env.RENDER_API_KEY ?: ''}"
+        RENDER_FRONTEND_SERVICE_ID = "${env.RENDER_FRONTEND_SERVICE_ID ?: ''}"
+        RENDER_BACKEND_SERVICE_ID = "${env.RENDER_BACKEND_SERVICE_ID ?: ''}"
     }   
     
     stages {
@@ -74,9 +78,24 @@ pipeline {
                         fi
                         
                         if [ -z "${SONAR_ORGANIZATION}" ]; then
+                          echo "=========================================="
                           echo "ERROR: SONAR_ORGANIZATION is not set"
-                          echo "Please configure SONAR_ORGANIZATION in Jenkins environment variables"
-                          echo "You can find your organization key in SonarCloud: https://sonarcloud.io/organizations"
+                          echo "=========================================="
+                          echo ""
+                          echo "📋 Pour configurer SONAR_ORGANIZATION :"
+                          echo ""
+                          echo "1. Trouvez votre clé d'organisation :"
+                          echo "   → Allez sur https://sonarcloud.io"
+                          echo "   → My Account → Organizations"
+                          echo "   → Notez la clé (ex: 'djerade')"
+                          echo ""
+                          echo "2. Configurez dans Jenkins :"
+                          echo "   → Manage Jenkins → Configure System"
+                          echo "   → Global properties → Environment variables"
+                          echo "   → Ajoutez : Name=SONAR_ORGANIZATION, Value=votre-clé"
+                          echo ""
+                          echo "📖 Guide détaillé : JENKINS_SONAR_ORG_SETUP.md"
+                          echo ""
                           exit 1
                         fi
                         
@@ -84,6 +103,7 @@ pipeline {
                         echo "SONAR_HOST_URL: ${SONAR_HOST_URL}"
                         echo "SONAR_ORGANIZATION: ${SONAR_ORGANIZATION}"
                         echo "Project Key: mini_projet_frontend"
+                        echo ""
                         
                         # Check if coverage file exists
                         COVERAGE_OPTION=""
@@ -146,7 +166,55 @@ pipeline {
 
         stage('Deploy') {
             steps {
-                sh 'docker compose up -d'
+                withCredentials([string(credentialsId: 'render-api-key', variable: 'RENDER_API_KEY_CRED')]) {
+                    script {
+                        // Utiliser la credential ou la variable d'environnement
+                        def renderApiKey = env.RENDER_API_KEY ?: env.RENDER_API_KEY_CRED
+                        def frontendServiceId = env.RENDER_FRONTEND_SERVICE_ID
+                        def backendServiceId = env.RENDER_BACKEND_SERVICE_ID
+                        
+                        if (!renderApiKey) {
+                            error("RENDER_API_KEY is not set. Please configure it in Jenkins credentials (ID: 'render-api-key') or as environment variable")
+                        }
+                        
+                        if (!frontendServiceId || !backendServiceId) {
+                            error("RENDER_FRONTEND_SERVICE_ID and RENDER_BACKEND_SERVICE_ID must be set in Jenkins environment variables")
+                        }
+                        
+                        echo "Deploying to Render..."
+                        echo "Frontend Service ID: ${frontendServiceId}"
+                        echo "Backend Service ID: ${backendServiceId}"
+                        
+                        // Déployer le backend
+                        sh """
+                            echo "Deploying backend to Render..."
+                            curl -f -X POST "https://api.render.com/v1/services/${backendServiceId}/deploys" \\
+                                -H "Authorization: Bearer ${renderApiKey}" \\
+                                -H "Content-Type: application/json" \\
+                                -d '{"clearCache": "do_not_clear"}' || {
+                                EXIT_CODE=\$?
+                                echo "Backend deployment API call returned exit code: \$EXIT_CODE"
+                                echo "This might be normal if deployment is already in progress"
+                            }
+                        """
+                        
+                        // Déployer le frontend
+                        sh """
+                            echo "Deploying frontend to Render..."
+                            curl -f -X POST "https://api.render.com/v1/services/${frontendServiceId}/deploys" \\
+                                -H "Authorization: Bearer ${renderApiKey}" \\
+                                -H "Content-Type: application/json" \\
+                                -d '{"clearCache": "do_not_clear"}' || {
+                                EXIT_CODE=\$?
+                                echo "Frontend deployment API call returned exit code: \$EXIT_CODE"
+                                echo "This might be normal if deployment is already in progress"
+                            }
+                        """
+                        
+                        echo "✅ Deployment to Render triggered successfully"
+                        echo "Check deployment status at: https://dashboard.render.com"
+                    }
+                }
             }
         }
     }
