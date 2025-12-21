@@ -87,10 +87,12 @@ Si vous utilisez une base de données PostgreSQL sur Render :
 2. Faites défiler jusqu'à **"Global properties"**
 3. Cochez **"Environment variables"**
 4. Ajoutez les variables suivantes :
-   - **Name** : `RENDER_API_KEY` → **Value** : votre API key Render
-   - **Name** : `RENDER_FRONTEND_SERVICE_ID` → **Value** : ID du service frontend
-   - **Name** : `RENDER_BACKEND_SERVICE_ID` → **Value** : ID du service backend
+   - **Name** : `RENDER_API_KEY` → **Value** : votre API key Render (optionnel si vous utilisez Option A)
+   - **Name** : `RENDER_FRONTEND_SERVICE_ID` → **Value** : ID du service frontend (ex: `srv-abc123def456ghi789`)
+   - **Name** : `RENDER_BACKEND_SERVICE_ID` → **Value** : ID du service backend (ex: `srv-xyz789abc123def456`)
 5. Cliquez sur **"Save"**
+
+⚠️ **Important** : Les Service IDs sont **obligatoires**. Consultez `JENKINS_RENDER_SERVICE_IDS.md` pour savoir comment les trouver.
 
 ### Option C : Variables par job
 
@@ -107,15 +109,14 @@ Si vous utilisez une base de données PostgreSQL sur Render :
 Les Service IDs sont visibles dans l'URL de votre service sur Render :
 
 ```
-https://dashboard.render.com/web/votre-service-id
-                                    ^^^^^^^^^^^^^^^^
+https://dashboard.render.com/web/srv-xxxxxxxxxxxxxxxx
+                                    ^^^^^^^^^^^^^^^^^^^^
                                     C'est le Service ID
 ```
 
-Ou dans les paramètres du service :
-1. Allez dans votre service sur Render
-2. Cliquez sur "Settings"
-3. Le Service ID est affiché en haut de la page
+Le Service ID commence par `srv-` suivi d'une série de caractères.
+
+**📖 Guide détaillé** : Consultez `JENKINS_RENDER_SERVICE_IDS.md` pour des instructions complètes sur comment trouver et configurer les Service IDs dans Jenkins.
 
 ## Comment ça fonctionne
 

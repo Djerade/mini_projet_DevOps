@@ -49,7 +49,11 @@
           <default>
             <comparator class="java.lang.String$CaseInsensitiveComparator"/>
           </default>
-          <int>1</int>
+          <int>3</int>
+          <string>RENDER_BACKEND_SERVICE_ID</string>
+          <string>srv-d541skre5dus73b92oj0</string>
+          <string>RENDER_FRONTEND_SERVICE_ID</string>
+          <string>srv-d545ut6r433s73cp14rg/deploys/dep-d545uter433s73cp1550</string>
           <string>SONAR_ORGANIZATION</string>
           <string>985b504d64bff6038f0ab1596e40c2cdaa6890e7</string>
         </tree-map>

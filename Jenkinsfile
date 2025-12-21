@@ -213,7 +213,30 @@ pipeline {
                         }
                         
                         if (!frontendServiceId || !backendServiceId) {
-                            error("RENDER_FRONTEND_SERVICE_ID and RENDER_BACKEND_SERVICE_ID must be set in Jenkins environment variables")
+                            error("""
+                                ==========================================
+                                ERROR: Service IDs not configured
+                                ==========================================
+                                
+                                RENDER_FRONTEND_SERVICE_ID and RENDER_BACKEND_SERVICE_ID must be set in Jenkins.
+                                
+                                📋 Pour configurer :
+                                
+                                1. Trouvez vos Service IDs sur Render :
+                                   → Allez sur https://dashboard.render.com
+                                   → Cliquez sur votre service
+                                   → Regardez l'URL : https://dashboard.render.com/web/srv-xxxxx
+                                   → Le Service ID est la partie après /web/
+                                
+                                2. Configurez dans Jenkins :
+                                   → Manage Jenkins → Configure System
+                                   → Global properties → Environment variables
+                                   → Ajoutez :
+                                     - RENDER_FRONTEND_SERVICE_ID = srv-xxxxx
+                                     - RENDER_BACKEND_SERVICE_ID = srv-yyyyy
+                                
+                                📖 Guide détaillé : JENKINS_RENDER_SERVICE_IDS.md
+                            """)
                         }
                         
                         echo "Deploying to Render..."
