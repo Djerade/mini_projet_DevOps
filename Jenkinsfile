@@ -19,8 +19,14 @@ pipeline {
         stage('Init workspace paths') {
             steps {
                 script {
+                    // Workspace Jenkins standard (où le code est cloné)
+                    env.WORKSPACE_PATH = "${WORKSPACE}"
+                    // Chemin sur l'hôte pour les volumes Docker (si nécessaire)
                     env.HOST_WORKSPACE = "/home/perfect/Documents/GitHub/mini_projet_DevOps/jenkins/workspace/${env.JOB_NAME}"
+                    echo "Jenkins workspace: ${env.WORKSPACE_PATH}"
                     echo "Host workspace path: ${env.HOST_WORKSPACE}"
+                    echo "Checking workspace structure..."
+                    sh "ls -la ${WORKSPACE}/ || echo 'Workspace not accessible'"
                 }
             }
         }
@@ -144,10 +150,39 @@ pipeline {
         stage('Build') {
             steps {
                 sh '''
-                    echo "Building frontend image..."
-                    docker build -t ${FRONTEND_IMAGE} ${HOST_WORKSPACE}/frontend
-                    echo "Building backend image..."
-                    docker build -t ${BACKEND_IMAGE} ${HOST_WORKSPACE}/backend
+                    echo "Workspace: ${WORKSPACE}"
+                    echo "Checking workspace structure..."
+                    ls -la ${WORKSPACE}/ || echo "Workspace not found"
+                    
+                    # Vérifier si frontend existe dans WORKSPACE
+                    if [ -d "${WORKSPACE}/frontend" ]; then
+                        echo "✅ Frontend found in ${WORKSPACE}/frontend"
+                        FRONTEND_PATH="${WORKSPACE}/frontend"
+                    elif [ -d "${HOST_WORKSPACE}/frontend" ]; then
+                        echo "✅ Frontend found in ${HOST_WORKSPACE}/frontend"
+                        FRONTEND_PATH="${HOST_WORKSPACE}/frontend"
+                    else
+                        echo "❌ ERROR: Frontend directory not found in ${WORKSPACE}/frontend or ${HOST_WORKSPACE}/frontend"
+                        exit 1
+                    fi
+                    
+                    # Vérifier si backend existe dans WORKSPACE
+                    if [ -d "${WORKSPACE}/backend" ]; then
+                        echo "✅ Backend found in ${WORKSPACE}/backend"
+                        BACKEND_PATH="${WORKSPACE}/backend"
+                    elif [ -d "${HOST_WORKSPACE}/backend" ]; then
+                        echo "✅ Backend found in ${HOST_WORKSPACE}/backend"
+                        BACKEND_PATH="${HOST_WORKSPACE}/backend"
+                    else
+                        echo "❌ ERROR: Backend directory not found in ${WORKSPACE}/backend or ${HOST_WORKSPACE}/backend"
+                        exit 1
+                    fi
+                    
+                    echo "Building frontend image from: ${FRONTEND_PATH}"
+                    docker build -t ${FRONTEND_IMAGE} ${FRONTEND_PATH}
+                    
+                    echo "Building backend image from: ${BACKEND_PATH}"
+                    docker build -t ${BACKEND_IMAGE} ${BACKEND_PATH}
                 '''
             }
         }
