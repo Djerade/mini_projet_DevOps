@@ -4,7 +4,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.jenkins.plugins</groupId>
   <artifactId>asm-api</artifactId>
-  <version>9.9-185.va_6c6b_3348b_c3</version>
+  <version>9.9.1-189.vb_5ef2964da_91</version>
   <packaging>hpi</packaging>
   <name>ASM API Plugin</name>
   <description>The Jenkins Plugins Parent POM Project</description>
@@ -19,7 +19,7 @@
   <scm>
     <connection>scm:git:https://github.com/jenkinsci/asm-api-plugin</connection>
     <developerConnection>scm:git:https://github.com/jenkinsci/asm-api-plugin</developerConnection>
-    <tag>a6c6b3348bc3886b4e11984eea1264d9cdceee5d</tag>
+    <tag>b5ef2964da91209e27ad215d902235ff64a549af</tag>
     <url>https://github.com/jenkinsci/asm-api-plugin</url>
   </scm>
   <distributionManagement>
@@ -36,31 +36,31 @@
     <dependency>
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm</artifactId>
-      <version>9.9</version>
+      <version>9.9.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-analysis</artifactId>
-      <version>9.9</version>
+      <version>9.9.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-commons</artifactId>
-      <version>9.9</version>
+      <version>9.9.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-tree</artifactId>
-      <version>9.9</version>
+      <version>9.9.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
       <groupId>org.ow2.asm</groupId>
       <artifactId>asm-util</artifactId>
-      <version>9.9</version>
+      <version>9.9.1</version>
       <scope>compile</scope>
     </dependency>
     <dependency>
@@ -87,7 +87,7 @@
       <plugin>
         <groupId>org.jenkins-ci.tools</groupId>
         <artifactId>maven-hpi-plugin</artifactId>
-        <version>3.1746.v2e9fe7dc4d95</version>
+        <version>3.1762.vd3ff902a_5b_c4</version>
         <extensions>true</extensions>
       </plugin>
     </plugins>
