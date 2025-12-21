@@ -123,8 +123,12 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'docker build -t ${FRONTEND_IMAGE} frontend'
-                sh 'docker build -t ${BACKEND_IMAGE} backend'
+                sh '''
+                    echo "Building frontend image..."
+                    docker build -t ${FRONTEND_IMAGE} ${HOST_WORKSPACE}/frontend
+                    echo "Building backend image..."
+                    docker build -t ${BACKEND_IMAGE} ${HOST_WORKSPACE}/backend
+                '''
             }
         }
 
